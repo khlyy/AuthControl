@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const NoteSchema = mongoose.Schema({
+
+const PermissionSchema = mongoose.Schema({
   GroupId: {
      type: mongoose.Types.ObjectId,
      ref: 'Group'
@@ -10,4 +11,4 @@ const NoteSchema = mongoose.Schema({
  }
   );
 
-module.exports = mongoose.model('Note', NoteSchema);
+module.exports = mongoose.model('Permission', PermissionSchema);
