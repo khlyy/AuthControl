@@ -8,8 +8,10 @@ module.exports = (app) => {
     app.get('/group', groupController.findAll);
 
     // Retrieve a single group with GroupId
-    app.get('/group/:id/user', groupController.findOne);
+    app.get('/group/:id', groupController.findOne);
 
+    // attach a list of users belonging to one group
+    app.get('/group/:id/user', groupController.getAttachedUsers);
 
     //Attaches list of userId s to the group.
     app.post('/group/:id/user', groupController.attachUsers);

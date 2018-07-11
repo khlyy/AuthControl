@@ -32,7 +32,7 @@ exports.create = (req, res) => {
 // Retrieve and return all group from the database. ***
 exports.findAll = (req, res) => {
 
-    Group.find({}, 'id name')
+    Group.find({}, 'id name description')
     .then(groups => {
       let response = {count:groups.length, items:groups}
       res.send(response);
@@ -46,15 +46,14 @@ exports.findAll = (req, res) => {
 
 // Find a single group with a groupId
 exports.findOne = (req, res) => {
-  Group.findById(req.params.id)
+  Group.findOne({"_id":req.params.id}, 'id name description')
       .then(group => {
           if(!group) {
               return res.status(404).send({
                   message: "group not found with id " + req.params.id
               });
           }
-          let response = {groupId: group.id, name: group.name}
-          res.send(response);
+          res.send(group);
       }).catch(err => {
           if(err.kind === 'ObjectId') {
               return res.status(404).send({
@@ -66,6 +65,11 @@ exports.findOne = (req, res) => {
           });
       });
 };
+
+// Returns a list of users belonging to that group.
+exports.getAttachedUsers = (req, res) => {
+};
+
 
 // attach list of users to specific group **
 exports.attachUsers = (req, res) => {
