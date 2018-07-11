@@ -3,4 +3,11 @@ module.exports = (app) => {
     // route for creating new resource
     app.post('/resource', resourceController.create);
 
+    // route for retrieving the list of resources.
+    app.get('/resource', resourceController.findAll);
+
+    // Retrieve a single resource with resourceId
+    app.get('/resource/:id', resourceController.findOne);
+
+
 }

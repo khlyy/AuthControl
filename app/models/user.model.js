@@ -12,7 +12,7 @@ const UserSchema = mongoose.Schema({
     resourceIds: {
       type: [{
         type: mongoose.Types.ObjectId,
-        ref: 'Resourcce'
+        ref: 'Resource'
       }],
       default: []
     }
