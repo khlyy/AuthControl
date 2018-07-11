@@ -27,9 +27,10 @@ exports.create = (req, res) => {
 
 // Retrieve and return all resorces from the database. ***
 exports.findAll = (req, res) => {
-  Resource.find()
+  Resource.find({}, 'id name')
   .then(resources => {
-      res.send(resources);
+      let response = {count: resources.length, items: resources}
+      res.send(response);
   }).catch(err => {
       res.status(500).send({
           message: err.message || "Some error occurred while retrieving resources."

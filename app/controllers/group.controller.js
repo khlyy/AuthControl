@@ -32,9 +32,10 @@ exports.create = (req, res) => {
 // Retrieve and return all group from the database. ***
 exports.findAll = (req, res) => {
 
-    Group.find()
+    Group.find({}, 'id name')
     .then(groups => {
-        res.send(groups);
+      let response = {count:groups.length, items:groups}
+      res.send(response);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving groups."

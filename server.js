@@ -23,9 +23,9 @@ mongoose.connect(dbConfig.url)
 });
 
 
-// define a simple route
+// define a test route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."});
+    res.json({"message": "Welcome to AuthApp application. check user authentication quickly"});
 });
 require('./app/routes/auth.routes.js')(app);
 require('./app/routes/group.routes.js')(app);
