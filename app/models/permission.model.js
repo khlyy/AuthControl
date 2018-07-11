@@ -8,7 +8,7 @@ const PermissionSchema = mongoose.Schema({
    ResourceId: {
    type: mongoose.Types.ObjectId,
    ref: 'Resource'
- }
+ }}
   );
 
 module.exports = mongoose.model('Permission', PermissionSchema);
