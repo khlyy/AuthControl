@@ -32,11 +32,38 @@ exports.create = (req, res) => {
 // Retrieve and return all group from the database. ***
 exports.findAll = (req, res) => {
 
+    Group.find()
+    .then(groups => {
+        res.send(groups);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving groups."
+        });
+    });
 };
+
 
 // Find a single group with a groupId
 exports.findOne = (req, res) => {
-
+  Group.findById(req.params.id)
+      .then(group => {
+          if(!group) {
+              return res.status(404).send({
+                  message: "group not found with id " + req.params.id
+              });
+          }
+          let response = {groupId: group.id, name: group.name}
+          res.send(response);
+      }).catch(err => {
+          if(err.kind === 'ObjectId') {
+              return res.status(404).send({
+                  message: "group not found with id " + req.params.id
+              });
+          }
+          return res.status(500).send({
+              message: "Error retrieving note with id " + req.params.id
+          });
+      });
 };
 
 // attach list of users to specific group **

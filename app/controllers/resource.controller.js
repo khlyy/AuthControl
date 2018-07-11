@@ -27,10 +27,35 @@ exports.create = (req, res) => {
 
 // Retrieve and return all resorces from the database. ***
 exports.findAll = (req, res) => {
+  Resource.find()
+  .then(resources => {
+      res.send(resources);
+  }).catch(err => {
+      res.status(500).send({
+          message: err.message || "Some error occurred while retrieving resources."
+      });
+  });
 
 };
 
 // Find a single resource with a resourceId
 exports.findOne = (req, res) => {
-
+  Resource.findById(req.params.id)
+    .then(resource => {
+        if(!resource) {
+            return res.status(404).send({
+                message: "Resource not found with id " + req.params.id
+            });
+        }
+        res.send(resource);
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Resource not found with id " + req.params.id
+            });
+        }
+        return res.status(500).send({
+            message: "Resource retrieving note with id " + req.params.id
+        });
+    });
 };
