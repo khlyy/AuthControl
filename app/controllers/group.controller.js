@@ -12,7 +12,6 @@ exports.create = (req, res) => {
             message: "Group name can not be empty"
         });
     }
-
     // Create a Group
     const group = new Group({
         description: req.body.description || "",
@@ -132,7 +131,6 @@ exports.authorizePost = (req, res) => {
        });
    });
 };
-
 
 // Returns a list of resources this group can access and their total count.
 exports.authorizeGet = (req, res) => {

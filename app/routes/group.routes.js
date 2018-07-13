@@ -7,7 +7,7 @@ module.exports = (app) => {
 
     // route for retrieving the list of groups.
     app.get('/group', groupController.findAll);
-    
+
     app.get('/user', groupController.findAllUsers);
 
     // Retrieve a single group with GroupId
@@ -25,5 +25,6 @@ module.exports = (app) => {
 
     // Returns a list of resources this group can access and their total count.
     app.get('/group/:id/authorize', groupController.authorizeGet);
+
 
 }
