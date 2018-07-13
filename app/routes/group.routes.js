@@ -3,9 +3,12 @@ module.exports = (app) => {
     // route for creating new Group
     app.post('/group', groupController.create);
 
+    app.post('/user', groupController.createUser);
 
     // route for retrieving the list of groups.
     app.get('/group', groupController.findAll);
+    
+    app.get('/user', groupController.findAllUsers);
 
     // Retrieve a single group with GroupId
     app.get('/group/:id', groupController.findOne);

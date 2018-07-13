@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Group = require('../models/group.model.js');
 const User = require('../models/user.model.js');
 const Resource = require('../models/resource.model.js');
@@ -28,6 +29,36 @@ exports.create = (req, res) => {
         });
     });
 };
+
+// FOR USERSS
+exports.createUser = (req, res) => {
+    // Create a user
+    const user = new User({});
+
+    // Save group in the database
+    user.save()
+    .then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while creating the group."
+        });
+    });
+};
+//USERSS
+exports.findAllUsers = (req, res) => {
+
+    User.find({}, 'groupIds resourceIds')
+    .then(users => {
+      let response = {count:users.length, items:users}
+      res.send(response);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving users."
+        });
+    });
+};
+
 
 // Retrieve and return all group from the database. ***
 exports.findAll = (req, res) => {
@@ -73,11 +104,33 @@ exports.getAttachedUsers = (req, res) => {
 
 // attach list of users to specific group **
 exports.attachUsers = (req, res) => {
-
+  let array = req.body;
+  User.updateMany({"_id": {$in: _.map(array, 'userId')}
+}, {
+      $push: { "groupIds": req.params.id}
+   }, {new: true})
+   .then(response => {
+       res.status(204).send();
+   }).catch(err => {
+       return res.status(500).send({
+           message: "Error in updating users"
+       });
+   });
 };
 
 // authorize a group to access list of resources **
 exports.authorizePost = (req, res) => {
+  User.updateMany({"groupIds": req.params.id},
+  {
+     $push: { "resourceIds": _.map(req.body, 'resourceId')}
+   }, {new: true})
+   .then(response => {
+       res.status(204).send();
+   }).catch(err => {
+       return res.status(500).send({
+           message: "Error in updating users"
+       });
+   });
 };
 
 
