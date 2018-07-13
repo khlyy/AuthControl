@@ -5,7 +5,7 @@ const Resource = require('../models/resource.model.js');
 
 // check if user is Authorized or not  ***
 exports.isAuthorized = (req, res) => {
-  User.findOne({"_id":req.query.userId, "resourceIds": req.query.resourceName})
+  User.findOne({"_id":req.query.userId, "resourceNames": req.query.resourceName})
       .then(user => {
           if(!user) {
               return res.status(403).send({

@@ -8,10 +8,9 @@ const UserSchema = mongoose.Schema({
       }],
       default: []
     },
-    resourceIds: {
+    resourceNames: {
       type: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Resource'
+        type: String
       }],
       default: []
     }

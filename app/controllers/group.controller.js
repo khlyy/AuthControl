@@ -47,7 +47,7 @@ exports.createUser = (req, res) => {
 //USERSS
 exports.findAllUsers = (req, res) => {
 
-    User.find({}, 'groupIds resourceIds')
+    User.find({}, 'groupIds resourceNames')
     .then(users => {
       let response = {count:users.length, items:users}
       res.send(response);
@@ -118,18 +118,20 @@ exports.attachUsers = (req, res) => {
 };
 
 // authorize a group to access list of resources **
-exports.authorizePost = (req, res) => {
-  User.updateMany({"groupIds": req.params.id},
+exports.authorizePost = async (req, res) => {
+  try{
+  const resources = await Resource.find({"_id": {$in: _.map(req.body, 'resourceId')}},'name');
+  const response = await User.updateMany({"groupIds": req.params.id},
   {
-     $push: { "resourceIds": _.map(req.body, 'resourceId')}
-   }, {new: true})
-   .then(response => {
-       res.status(204).send();
-   }).catch(err => {
-       return res.status(500).send({
-           message: "Error in updating users"
-       });
+     $push: { "resourceNames": _.map(resources, 'name')}
+   }, {new: true});
+
+   res.status(204).send();
+ } catch(error){
+   return res.status(500).send({
+       message: "Error in updating users"
    });
+ }
 };
 
 // Returns a list of resources this group can access and their total count.
