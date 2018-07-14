@@ -1,10 +1,10 @@
-let mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Resource = require('../app/models/resource.model.js');
 
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../server');
-let should = chai.should();
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const server = require('../server');
+const should = chai.should();
 
 chai.use(chaiHttp);
 describe('Resource', () => {
@@ -28,24 +28,19 @@ describe('Resource', () => {
       });
   });
   describe('/POST resource', () => {
-      // it('it should not POST a book without pages field', (done) => {
-      //   let book = {
-      //       title: "The Lord of the Rings",
-      //       author: "J.R.R. Tolkien",
-      //       year: 1954
-      //   }
-      //       chai.request(server)
-      //       .post('/book')
-      //       .send(book)
-      //       .end((err, res) => {
-      //           res.should.have.status(200);
-      //           res.body.should.be.a('object');
-      //           res.body.should.have.property('errors');
-      //           res.body.errors.should.have.property('pages');
-      //           res.body.errors.pages.should.have.property('kind').eql('required');
-      //         done();
-      //       });
-      // });
+      it('it should not POST a resource without name field', (done) => {
+        let resource = {
+        }
+            chai.request(server)
+            .post('/resource')
+            .send(resource)
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').equal("resource name can not be empty");
+                done();
+            });
+      });
       it('it should POST a resource ', (done) => {
         let resource = {
             name: "Buss"

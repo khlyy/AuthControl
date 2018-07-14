@@ -104,7 +104,6 @@ try{
   let array = req.body;
   const response = await User.updateMany({"_id": {$in: _.map(array, 'userId')}}, { $push: { "groupIds": req.params.id}
 }, {new: true});
-
    res.status(204).send();
  }
    catch(error) {
