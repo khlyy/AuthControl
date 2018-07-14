@@ -8,7 +8,7 @@ const server = require('../server')
 const should = chai.should()
 
 chai.use(chaiHttp)
-describe('Resource', () => {
+describe('Group', () => {
   beforeEach((done) => {
     Group.remove({}, (err) => {
       User.remove({}, (err) => {
@@ -73,7 +73,7 @@ describe('Resource', () => {
             res.should.have.status(200)
             res.body.should.be.a('object')
             res.body.should.have.property('name').equal(group.name)
-            res.body.should.have.property('_id').eql(group.id)
+            res.body.should.have.property('_id').equal(group.id)
             done()
           })
       })
@@ -112,6 +112,20 @@ describe('Resource', () => {
         .send(body)
         .end((err, res) => {
           res.should.have.status(204)
+        })
+    })
+  })
+
+  describe('/authorized?user=id&resourceName=name', async () => {
+    it('it should check if a user can access a resource or not', async () => {
+      let group = await new Group({name: 'line group'}).save()
+      let firstResource = await new Resource({'name': 'Bus'}).save()
+      let firstUser = await new User({'groupIds': [group.id], 'resourceNames': ['Bus']}).save()
+      chai.request(server)
+        .get('/authorized?userId=' + firstUser.id + 'resourceName=' + firstResource.name)
+        .send()
+        .end((err, res) => {
+          res.should.have.property('authorized').equal(true)
         })
     })
   })
