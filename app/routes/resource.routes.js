@@ -8,5 +8,6 @@ module.exports = (app) => {
 
     // Retrieve a single resource with resourceId
     app.get('/resource/:id', resourceController.findOne);
+    
 
 }
