@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const ResourceSchema = mongoose.Schema({
-    name: String
-});
+  name: String
+})
 
-module.exports = mongoose.model('Resource', ResourceSchema);
+module.exports = mongoose.model('Resource', ResourceSchema)

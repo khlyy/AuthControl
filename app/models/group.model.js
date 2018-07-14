@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+const mongoose = require('mongoose')
 
 const GroupSchema = mongoose.Schema({
   name: String,
@@ -11,6 +10,6 @@ const GroupSchema = mongoose.Schema({
     }],
     default: []
   }}
-);
+)
 
-module.exports = mongoose.model('Group', GroupSchema);
+module.exports = mongoose.model('Group', GroupSchema)
