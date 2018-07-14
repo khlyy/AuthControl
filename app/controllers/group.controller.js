@@ -34,7 +34,7 @@ exports.createUser = (req, res) => {
     // Create a user
     const user = new User({});
 
-    // Save group in the database
+    // Save user in the database
     user.save()
     .then(data => {
         res.send(data);

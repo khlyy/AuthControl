@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
 require('./app/routes/auth.routes.js')(app);
 require('./app/routes/group.routes.js')(app);
 require('./app/routes/resource.routes.js')(app);
+require('./app/routes/seed.routes.js')(app);
 
 
 app.listen(3000, () => {
