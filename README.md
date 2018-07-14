@@ -15,13 +15,13 @@ No sql databases have a better performance when serving many concurrent users. A
 
 ## schema Design
 ### user
-{userId: String <br/>
- groupId:[]<br/>
- resourceName:[]<br/>
+{ userId: String <br/>
+  groupId:[]<br/>
+  resourceName:[]<br/>
 }<br/>
 
 ### group
-{groupName: String <br/>
- resourceId: [] <br/>
+{ groupName: String <br/>
+  resourceId: [] <br/>
 }<br/>
-The above schema is part of the original one. Here I decided not to save the usersId inside the group, as the number of users will be too large and it's bad to embedd too many object inside one document. So instead I saved the groupIds in which the user belong as an embedded array inside the user. 
+The above schema is part of the original one. Here I decided not to save the usersId inside the group, as the number of users will be too large and it's bad to embedd too many object inside one document. So instead I saved the groupIds in which the user belong as an embedded array inside the user. The most important thing is that I decided to store the resources name in which the user can accses as an array in the user. This is because the request which asks whether the user can acsess this resource hits the server too much, so it has the priority to be done in one I/O operation to be fast enough. Of course this added some complexity in the update and create process but I am okay with that as updates will not be too much as reading operations. 
