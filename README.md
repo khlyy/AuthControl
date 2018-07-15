@@ -6,7 +6,7 @@
   1- use npm install.<br/>
   2- to run server use npm server.js<br/>
   3- to run unit tests use npm test<br/>
-  4- If you like to seed 1000000 users you can use "/seed/user" route  and "seed/resource" to seed resources <br/>
+  4- If you like to seed 100000 users you can use "/seed/user" route  and "seed/resource" to seed resources <br/>
   
  ## Why I choose Node Js?
   In Auth-control microservice, there are many concurrent requests that hits the server, the requests are mainly I/O operations which do not require many computational power that may block the event loop. For these two reasons, I have chosen node js as node is very light weight and execute fast. Also, node works with the event loop which is single threaded that preforms all I/O operations asynchronously without blocking the remaning code, this make it preform very fast in handling too many requests at the same time. 
